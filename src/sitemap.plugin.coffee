@@ -30,6 +30,8 @@ module.exports = (BasePlugin) ->
 			docpad = @docpad
 			templateData = docpad.getTemplateData()
 			docpadConfig = docpad.getConfig()
+      replaceUrlPattern = docpadConfig.replaceUrlPattern or //g
+      replaceUrlReplacement = docpadConfig.replaceUrlReplacement or ''
 
 			# create sitemap data object
 			sitemapData = extendr.extend({
@@ -55,7 +57,7 @@ module.exports = (BasePlugin) ->
 
 					# create document's sitemap data
 					data =
-						url: document.get('url')
+						url: document.get('url').replace replaceUrlPattern, replaceUrlReplacement
 						changefreq: document.get('changefreq') ? sitemapData.changefreq
 						priority: document.get('priority') ? sitemapData.priority
 
