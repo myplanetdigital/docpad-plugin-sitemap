@@ -61,7 +61,7 @@
           if ((document.get('sitemap') !== false) && (document.get('write') !== false) && (document.get('ignored') !== true)) {
             documentUrl = document.get('url').replace(replaceUrlPattern, replaceUrlReplacement);
             if (sitemapData.removeExtension) {
-              documentUrl = documentUrl.replace(/(.htm|.html)/g, '');
+              documentUrl = documentUrl.replace(/\.html/g, '');
             }
             data = {
               url: documentUrl,

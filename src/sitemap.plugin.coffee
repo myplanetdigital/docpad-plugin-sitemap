@@ -70,7 +70,7 @@ module.exports = (BasePlugin) ->
 					# Perform any replacements necessary to the url
 					documentUrl = document.get('url').replace replaceUrlPattern, replaceUrlReplacement
 					if sitemapData.removeExtension
-						documentUrl = documentUrl.replace /(.htm|.html)/g, ''
+						documentUrl = documentUrl.replace /\.html/g, ''
 
 					# create document's sitemap data
 					data =
