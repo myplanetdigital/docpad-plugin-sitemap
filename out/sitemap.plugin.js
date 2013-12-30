@@ -57,10 +57,14 @@
         docpad.getCollection(sitemapData.collectionName).sortCollection({
           date: 1
         }).forEach(function(document) {
-          var _ref1, _ref2;
+          var documentUrl, _ref1, _ref2;
           if ((document.get('sitemap') !== false) && (document.get('write') !== false) && (document.get('ignored') !== true)) {
+            documentUrl = document.get('url').replace(replaceUrlPattern, replaceUrlReplacement);
+            if (sitemapData.removeExtension) {
+              documentUrl = documentUrl.replace(/(.htm|.html)/g, '');
+            }
             data = {
-              url: document.get('url').replace(replaceUrlPattern, replaceUrlReplacement),
+              url: documentUrl,
               changefreq: (_ref1 = document.get('changefreq')) != null ? _ref1 : sitemapData.changefreq,
               priority: (_ref2 = document.get('priority')) != null ? _ref2 : sitemapData.priority
             };

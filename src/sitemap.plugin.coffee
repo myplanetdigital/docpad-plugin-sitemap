@@ -67,9 +67,14 @@ module.exports = (BasePlugin) ->
 			docpad.getCollection(sitemapData.collectionName).sortCollection(date:1).forEach (document) ->
 				if (document.get('sitemap') isnt false) and (document.get('write') isnt false) and (document.get('ignored') isnt true)
 
+					# Perform any replacements necessary to the url
+					documentUrl = document.get('url').replace replaceUrlPattern, replaceUrlReplacement
+					if sitemapData.removeExtension
+						documentUrl = documentUrl.replace /(.htm|.html)/g, ''
+
 					# create document's sitemap data
 					data =
-						url: document.get('url').replace replaceUrlPattern, replaceUrlReplacement
+						url: documentUrl
 						changefreq: document.get('changefreq') ? sitemapData.changefreq
 						priority: document.get('priority') ? sitemapData.priority
 
