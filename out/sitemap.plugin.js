@@ -28,7 +28,7 @@
       };
 
       SitemapPlugin.prototype.writeAfter = function(opts, next) {
-        var docpad, docpadConfig, err, replaceUrlPattern, replaceUrlReplacement, sitemap, sitemapData, sitemapPath, templateData;
+        var data, docpad, docpadConfig, err, replaceUrlPattern, replaceUrlReplacement, sitemap, sitemapData, sitemapPath, templateData;
         docpad = this.docpad;
         templateData = docpad.getTemplateData();
         docpadConfig = docpad.getConfig();
@@ -45,10 +45,19 @@
         }
         sitemapPath = pathUtil.resolve(docpadConfig.outPath, sitemapData.filePath);
         docpad.log('debug', 'Creating sitemap in ' + sitemapPath);
+        if (sitemapData.addIndexUrl) {
+          data = {
+            url: templateData.site.url,
+            changefreq: sitemapData.changefreq,
+            priority: sitemapData.priority
+          };
+          docpad.log("debug", data);
+          sitemapData.urls.push(data);
+        }
         docpad.getCollection(sitemapData.collectionName).sortCollection({
           date: 1
         }).forEach(function(document) {
-          var data, _ref1, _ref2;
+          var _ref1, _ref2;
           if ((document.get('sitemap') !== false) && (document.get('write') !== false) && (document.get('ignored') !== true)) {
             data = {
               url: document.get('url').replace(replaceUrlPattern, replaceUrlReplacement),

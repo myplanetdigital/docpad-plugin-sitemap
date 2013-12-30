@@ -53,6 +53,16 @@ module.exports = (BasePlugin) ->
 			# log
 			docpad.log('debug', 'Creating sitemap in ' + sitemapPath)
 
+			# Optionally add index url to the sitemap
+			if sitemapData.addIndexUrl
+				data =
+					url: templateData.site.url
+					changefreq: sitemapData.changefreq
+					priority: sitemapData.priority
+
+				docpad.log "debug", data
+				sitemapData.urls.push data				
+
 			# loop over just the html files in the resulting collection
 			docpad.getCollection(sitemapData.collectionName).sortCollection(date:1).forEach (document) ->
 				if (document.get('sitemap') isnt false) and (document.get('write') isnt false) and (document.get('ignored') isnt true)
