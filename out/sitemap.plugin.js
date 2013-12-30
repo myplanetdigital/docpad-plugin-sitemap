@@ -28,10 +28,12 @@
       };
 
       SitemapPlugin.prototype.writeAfter = function(opts, next) {
-        var docpad, docpadConfig, err, sitemap, sitemapData, sitemapPath, templateData;
+        var docpad, docpadConfig, err, replaceUrlPattern, replaceUrlReplacement, sitemap, sitemapData, sitemapPath, templateData;
         docpad = this.docpad;
         templateData = docpad.getTemplateData();
         docpadConfig = docpad.getConfig();
+        replaceUrlPattern = docpadConfig.replaceUrlPattern || /(?:)/g;
+        replaceUrlReplacement = docpadConfig.replaceUrlReplacement || '';
         sitemapData = extendr.extend({
           hostname: templateData.site.url,
           cachetime: null,
@@ -49,7 +51,7 @@
           var data, _ref1, _ref2;
           if ((document.get('sitemap') !== false) && (document.get('write') !== false) && (document.get('ignored') !== true)) {
             data = {
-              url: document.get('url'),
+              url: document.get('url').replace(replaceUrlPattern, replaceUrlReplacement),
               changefreq: (_ref1 = document.get('changefreq')) != null ? _ref1 : sitemapData.changefreq,
               priority: (_ref2 = document.get('priority')) != null ? _ref2 : sitemapData.priority
             };
