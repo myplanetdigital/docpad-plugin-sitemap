@@ -30,8 +30,10 @@ module.exports = (BasePlugin) ->
 			docpad = @docpad
 			templateData = docpad.getTemplateData()
 			docpadConfig = docpad.getConfig()
-      replaceUrlPattern = docpadConfig.replaceUrlPattern or //g
-      replaceUrlReplacement = docpadConfig.replaceUrlReplacement or ''
+
+      # Allow replacement pattern on site urls 
+			replaceUrlPattern = docpadConfig.replaceUrlPattern or //g
+			replaceUrlReplacement = docpadConfig.replaceUrlReplacement or ''
 
 			# create sitemap data object
 			sitemapData = extendr.extend({
