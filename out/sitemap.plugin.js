@@ -32,13 +32,13 @@
         docpad = this.docpad;
         templateData = docpad.getTemplateData();
         docpadConfig = docpad.getConfig();
-        replaceUrlPattern = docpadConfig.replaceUrlPattern || /(?:)/g;
-        replaceUrlReplacement = docpadConfig.replaceUrlReplacement || '';
         sitemapData = extendr.extend({
           hostname: templateData.site.url,
           cachetime: null,
           urls: []
         }, this.getConfig());
+        replaceUrlPattern = sitemapData.replaceUrlPattern || /(?:)/g;
+        replaceUrlReplacement = sitemapData.replaceUrlReplacement || '';
         if (!sitemapData.hostname) {
           err = new Error('You must specify templateData.site.url in your docpad configuration file');
           return next(err);

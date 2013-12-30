@@ -31,16 +31,16 @@ module.exports = (BasePlugin) ->
 			templateData = docpad.getTemplateData()
 			docpadConfig = docpad.getConfig()
 
-      # Allow replacement pattern on site urls 
-			replaceUrlPattern = docpadConfig.replaceUrlPattern or //g
-			replaceUrlReplacement = docpadConfig.replaceUrlReplacement or ''
-
 			# create sitemap data object
 			sitemapData = extendr.extend({
 				hostname: templateData.site.url
 				cachetime: null
 				urls: []
 			}, @getConfig())
+
+			# Optionaly allow replacement pattern on site urls 
+			replaceUrlPattern = sitemapData.replaceUrlPattern or //g
+			replaceUrlReplacement = sitemapData.replaceUrlReplacement or ''
 
 			# Error if we have no site url
 			unless sitemapData.hostname
