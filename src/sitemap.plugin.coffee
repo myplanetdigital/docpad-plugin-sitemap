@@ -57,8 +57,8 @@ module.exports = (BasePlugin) ->
 			if sitemapData.addIndexUrl
 				data =
 					url: templateData.site.url
-					changefreq: sitemapData.changefreq
-					priority: sitemapData.priority
+					changefreq: "daily"
+					priority: "1.0"
 
 				docpad.log "debug", data
 				sitemapData.urls.push data				
